@@ -2,22 +2,22 @@ local M = {}
 
 function M.setup()
   require("base16-colorscheme").setup({
-    base00 = "#131313",
-    base01 = "#1f1f1f",
-    base02 = "#2a2a2a",
-    base03 = "#919191",
-    base04 = "#c6c6c6",
-    base05 = "#e2e2e2",
-    base06 = "#e2e2e2",
-    base07 = "#e2e2e2",
-    base08 = "#ffb4ab",
-    base09 = "#e6c18d",
-    base0A = "#e6bdbd",
-    base0B = "#ffb3b4",
-    base0C = "#e6c18d",
-    base0D = "#ffb3b4",
-    base0E = "#e6bdbd",
-    base0F = "#93000a",
+    base00 = "#10111b",
+    base01 = "#1d1a2a",
+    base02 = "#262237",
+    base03 = "#645d74",
+    base04 = "#c8b9ca",
+    base05 = "#eee7f0",
+    base06 = "#eee7f0",
+    base07 = "#eee7f0",
+    base08 = "#f08a9b",
+    base09 = "#7fb6d6",
+    base0A = "#afa2d8",
+    base0B = "#e6a6c8",
+    base0C = "#96cae9",
+    base0D = "#e996c2",
+    base0E = "#aa96e9",
+    base0F = "#b4132e",
   })
 
   local groups = {

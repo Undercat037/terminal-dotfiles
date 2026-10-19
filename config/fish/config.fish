@@ -72,7 +72,7 @@ if status is-interactive
     # === for debian ===
     abbr at 'sudo apt install'
 
-    abbr pskill "sudo pkill -9"
+    abbr execute "sudo pkill -9"
 
     abbr own 'sudo chown -R $USER:$USER ~/file'
 
@@ -120,6 +120,8 @@ if status is-interactive
     abbr jlog-prev 'journalctl -b -1 | tee ~/last-session-prev.log'
     abbr jlog-err 'journalctl -b 0 -p err | tee ~/last-session-errors.log'
     abbr jlog-prev-err 'journalctl -b -1 -p err | tee ~/last-session-prev-errors.log'
+
+    abbr trim 'sudo fstrim -av'
 
     # ==========
     # Aliases
@@ -228,8 +230,8 @@ if status is-interactive
     # =========================
     alias dcs-makepkg-edit='nvim ~/.config/pacman/makepkg.conf'
 
-    alias dcs-health-analyze='sudo echo "=== БАТАРЕЯ ===" && upower -i /org/freedesktop/UPower/devices/battery_BAT1 | rg "capacity|energy-full" && echo "=== SSD ===" && sudo smartctl -a /dev/nvme0n1 | rg "Percentage Used|Available Spare|Data Units Written"'
-    alias dcs-btrfs-balance='sudo btrfs balance start -dusage=90 / '
+    alias dcs-health-analyze='sudo echo "=== БАТАРЕЯ ===" && upower -i /org/freedesktop/UPower/devices/battery_BAT1 | rg "capacity|energy-full" && echo "=== SSD nvme0n1 ===" && sudo smartctl -a /dev/nvme0n1 | rg "Percentage Used|Available Spare|Data Units Written" && echo "=== SSD nvme1n1 ===" && sudo smartctl -a /dev/nvme1n1 | rg "Percentage Used|Available Spare|Data Units Written"'
+    alias dcs-btrfs-balance='sudo btrfs balance start -dusage=85 / '
 
     alias dcs-grub-edit='sudo nano /etc/default/grub'
     alias dcs-grub-upgrade='sudo grub-mkconfig -o /boot/grub/grub.cfg'
@@ -333,6 +335,26 @@ if status is-interactive
         end
     end
 
+end
+
+function ae-pack
+    rsync -aHAXxh aura-emerge/src/ ae-archive/src/
+    rsync -aHAXxh aura-emerge/Cargo.lock ae-archive/Cargo.lock
+    rsync -aHAXxh aura-emerge/Cargo.toml ae-archive/Cargo.toml
+    rsync -aHAXxh aura-emerge/README.MD ae-archive/README.MD
+    rsync -aHAXxh aura-emerge/UA-README.MD ae-archive/UA-README.MD
+    rsync -aHAXxh aura-emerge/RU-README.MD ae-archive/RU-README.MD
+    rsync -aHAXxh aura-emerge/.github/ ae-archive/.github/
+    rsync -aHAXxh aura-emerge/Makefile ae-archive/Makefile
+    rsync -aHAXxh aura-emerge/deny.toml ae-archive/deny.toml
+    rsync -aHAXxh aura-emerge/PKGBUILD ae-archive/PKGBUILD
+    rsync -aHAXxh aura-emerge/aura-emerge.install ae-archive/aura-emerge.install
+    rsync -aHAXxh aura-emerge/build.rs ae-archive/build.rs
+    rsync -aHAXxh aura-emerge/misc/ ae-archive/misc/
+    rsync -aHAXxh aura-emerge/scaner-test/ ae-archive/scaner-test/
+
+    rm -f ae-source.tar
+    tar -acf ae-source.tar ae-archive
 end
 
 function take
