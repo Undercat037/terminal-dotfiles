@@ -233,7 +233,7 @@ if status is-interactive
     alias dcs-health-analyze='sudo echo "=== БАТАРЕЯ ===" && upower -i /org/freedesktop/UPower/devices/battery_BAT1 | rg "capacity|energy-full" && echo "=== SSD nvme0n1 ===" && sudo smartctl -a /dev/nvme0n1 | rg "Percentage Used|Available Spare|Data Units Written" && echo "=== SSD nvme1n1 ===" && sudo smartctl -a /dev/nvme1n1 | rg "Percentage Used|Available Spare|Data Units Written"'
     alias dcs-btrfs-balance='sudo btrfs balance start -dusage=85 / '
 
-    alias dcs-grub-edit='sudo nano /etc/default/grub'
+    alias dcs-grub-edit='sudo nvim /etc/default/grub'
     alias dcs-grub-upgrade='sudo grub-mkconfig -o /boot/grub/grub.cfg'
     alias dcs-grub-cmdline='cat /etc/default/grub | grep "GRUB_CMDLINE_LINUX_DEFAULT" '
 
@@ -337,7 +337,7 @@ if status is-interactive
 
 end
 
-function ae-pack
+function ae-source
     rsync -aHAXxh aura-emerge/src/ ae-archive/src/
     rsync -aHAXxh aura-emerge/Cargo.lock ae-archive/Cargo.lock
     rsync -aHAXxh aura-emerge/Cargo.toml ae-archive/Cargo.toml
@@ -355,6 +355,17 @@ function ae-pack
 
     rm -f ae-source.tar
     tar -acf ae-source.tar ae-archive
+end
+
+function ae-page
+    rsync -aHAXxh aura-emerge/js/ ae-page/js/
+    rsync -aHAXxh aura-emerge/fonts ae-page/fonts/
+    rsync -aHAXxh aura-emerge/css/ ae-page/css/
+    rsync -aHAXxh aura-emerge/index.html ae-page/index.tml
+    rsync -aHAXxh aura-emerge/docs.html ae-page/docs.html
+    rsync -aHAXxh aura-emerge/flags.html ae-page/flags.html
+    rm -f ae-page.tar
+    tar -acf ae-page.tar ae-page/
 end
 
 function take
